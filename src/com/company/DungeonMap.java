@@ -1,15 +1,16 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DungeonMap {
     private String name;
-    private HashMap<Position, TileType> coordinateAndCorrespondingTileData;
+    private HashMap<Position, ArrayList<TileType>> coordinateAndCorrespondingTileData;
 
 
     DungeonMap(String inputDungeonName) {
         name = inputDungeonName;
-        coordinateAndCorrespondingTileData = new HashMap<Position, TileType>();
+        coordinateAndCorrespondingTileData = new HashMap<Position, ArrayList<TileType>>();
     }
 
     /**
@@ -18,8 +19,13 @@ public class DungeonMap {
      * @param coordinatesForNewCell
      * @param inputTileType
      */
-    DungeonMap setAssociation(Position coordinatesForNewCell, TileType inputTileType) {
-        coordinateAndCorrespondingTileData.put(coordinatesForNewCell, inputTileType);
+    DungeonMap addAssociation(Position coordinatesForNewCell, TileType inputTileType) {
+        if(!coordinateAndCorrespondingTileData.containsKey(coordinatesForNewCell)){
+            coordinateAndCorrespondingTileData.put(coordinatesForNewCell,new ArrayList<TileType>());
+        }
+        ArrayList<TileType> array = coordinateAndCorrespondingTileData.get(coordinatesForNewCell);
+        array.add(inputTileType);
+        coordinateAndCorrespondingTileData.put(coordinatesForNewCell, array);
         return this;
     }
 
@@ -27,16 +33,20 @@ public class DungeonMap {
         return name;
     }
 
-    public TileType getTileTypeForCoordinate(Position targetCoordinates) {
-        return coordinateAndCorrespondingTileData.get(targetCoordinates);
-    }
-    public void setTileTypeForCoordinate(Position targetCoordinates, TileType newTileType){
-        this.coordinateAndCorrespondingTileData.put(targetCoordinates,newTileType);
-    }
 
-    public boolean contains(Position searchPosition) {
-        return coordinateAndCorrespondingTileData.containsKey(searchPosition);
+    public TileType getTopTileType (Position targetCoordinates){
+        ArrayList<TileType> array = coordinateAndCorrespondingTileData.get(targetCoordinates);
+        int minDepth = Integer.MAX_VALUE;
+        TileType outputTileType = TileType.wallTile;
+        if(array!=null){
+            for(TileType item:array){
+                if(item.depthValue<minDepth) {
+                    minDepth = item.depthValue;
+                    outputTileType = item;
+                }
+            }
+        }
+        return outputTileType;
     }
-
-}
+ }
 

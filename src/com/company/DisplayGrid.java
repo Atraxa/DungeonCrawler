@@ -27,6 +27,7 @@ public class DisplayGrid {
      * Creates a TileType Grid dimensioned gridWidth by gridHeight, and then fills the cells based on coordinates present in the source DungeonMap.
      * It populates any coordinates not present in the DungeonMap as wallTile TileTypes and the location of the Player as playerOneTile TileType.
      */
+
     private static TileType[][] populate(Position inputPlayerCoordinate, DungeonMap sourceMap) {
         TileType[][] constructedGrid = new TileType[gridWidth][gridHeight];
         int offsetX = inputPlayerCoordinate.x - gridWidth / 2;
@@ -34,15 +35,8 @@ public class DisplayGrid {
         for (int x = 0; x < constructedGrid.length; x++) {
             for (int y = 0; y < constructedGrid[x].length; y++) {
                 Position searchPosition = new Position(x + offsetX, y + offsetY);
-                if (searchPosition.equals(inputPlayerCoordinate)) {
-                    constructedGrid[x][y] = playerOneTile;
-                } else if (sourceMap.contains(searchPosition)) {
-                    constructedGrid[x][y] = sourceMap.getTileTypeForCoordinate(searchPosition);
-                } else {
-                    constructedGrid[x][y] = wallTile;
-                }
+                constructedGrid[x][y]=sourceMap.getTopTileType(searchPosition);
             }
-
         }
         return constructedGrid;
     }
