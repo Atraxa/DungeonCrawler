@@ -1,5 +1,6 @@
 package com.company;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,5 +49,4 @@ public class DungeonMap {
         }
         return outputTileType;
     }
- }
-
+}

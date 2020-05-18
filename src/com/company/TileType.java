@@ -8,7 +8,8 @@ public enum TileType{
     wallTile('1',2),
     startTile('A',1),
     goalTile('Z',1),
-    playerOneTile('G',0);
+    playerOneTile('G',0),
+    nonPlayerTile('?',0);
     char finalDisplayValue;
     int depthValue;
     TileType(char inputDisplayValue, int inputDepthValue){

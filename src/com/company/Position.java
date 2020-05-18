@@ -11,6 +11,12 @@ public class Position {
         x =inputX;
         y =inputY;
     }
+    Position (Position positionToClone){
+        this.x = positionToClone.x;
+        this.y=positionToClone.y;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
