@@ -9,7 +9,11 @@ public enum TileType{
     startTile('A',1),
     goalTile('Z',1),
     playerOneTile('G',0),
-    nonPlayerTile('?',0);
+    nonPlayerTile('?',0),
+    wolfTile('W',-2),
+    elephantTile('E',0),
+    lettuceTile('*',0),
+    sheepTile('#',-1);
     char finalDisplayValue;
     int depthValue;
     TileType(char inputDisplayValue, int inputDepthValue){

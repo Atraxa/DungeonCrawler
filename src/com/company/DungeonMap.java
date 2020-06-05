@@ -3,10 +3,17 @@ package com.company;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.Set;
 
 public class DungeonMap {
     private String name;
     private HashMap<Position, ArrayList<TileType>> coordinateAndCorrespondingTileData;
+
+    DungeonMap(DungeonMap inputDungeonMap){
+        this.name = inputDungeonMap.name;
+        this.coordinateAndCorrespondingTileData= (HashMap<Position, ArrayList<TileType>>) inputDungeonMap.coordinateAndCorrespondingTileData.clone();
+    }
 
 
     DungeonMap(String inputDungeonName) {
@@ -20,7 +27,7 @@ public class DungeonMap {
      * @param coordinatesForNewCell
      * @param inputTileType
      */
-    DungeonMap addAssociation(Position coordinatesForNewCell, TileType inputTileType) {
+    public DungeonMap addAssociation(Position coordinatesForNewCell, TileType inputTileType) {
         if(!coordinateAndCorrespondingTileData.containsKey(coordinatesForNewCell)){
             coordinateAndCorrespondingTileData.put(coordinatesForNewCell,new ArrayList<TileType>());
         }
@@ -48,5 +55,15 @@ public class DungeonMap {
             }
         }
         return outputTileType;
+    }
+
+    /**
+     * Generates a random Position Object which is located within the Map (May be located off screen)
+     * @return
+     */
+    public Position getRandomPopulatedPosition (){
+        Set<Position> a = coordinateAndCorrespondingTileData.keySet();
+        int randomIndex = (int)Math.floor((Math.random()*(a.size())));
+        return (Position)a.toArray()[randomIndex];
     }
 }

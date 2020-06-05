@@ -1,6 +1,18 @@
 package com.company.Entities;
 
-public class Lettuce {
-    protected char displayValue='*';
-    protected int movementPoints=0;
+import com.company.DungeonMap;
+import com.company.Position;
+import com.company.TileType;
+
+public class Lettuce extends Entity{
+    {
+        displayTile = TileType.lettuceTile;
+        movementPoints = 0;
+    }
+    public Lettuce(Position inputCoordinates, DungeonMap inputDungeonMap){
+        super(inputDungeonMap);
+        entityCoordinates=inputCoordinates;
+    }
+    public Lettuce(DungeonMap inputDungeonMap){ super(inputDungeonMap); }
+
 }
