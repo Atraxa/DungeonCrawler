@@ -3,7 +3,9 @@ package com.company.Entities;
 
 import com.company.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Stack;
 
 public class Entity {
@@ -45,24 +47,34 @@ public class Entity {
         int numberOfMovementPointsRemaining = this.movementPoints;
         Stack<Position> remainingPath = AStar.returnShortestPath(inputDungeonMap, this.entityCoordinates, closestRelevantEntity.entityCoordinates);
         if(remainingPath.isEmpty()) return;
-            while (numberOfMovementPointsRemaining-- > 0 && remainingPath.peek() != closestRelevantEntity.entityCoordinates) {
-                this.entityCoordinates = remainingPath.pop();
-            }
+        while (numberOfMovementPointsRemaining-- > 0 && remainingPath.peek() != closestRelevantEntity.entityCoordinates) {
+            this.entityCoordinates = remainingPath.pop();
         }
+    }
+
+    public static void moveAllEntities(DungeonMap inputDungeonMap) {
+        for (Entity item : listOfEntities) {
+            item.moveEntityTowardsSpecificEntityType(inputDungeonMap);
+        }
+    }
+
 
     Entity getClosestRelevantEntity(Class<? extends Entity> inputEntityType) {
         double distance = Double.MAX_VALUE;
-        Entity targetItem=null;
-        double currentItemDistance;
+        ArrayList<Entity> equidistantTargets = new ArrayList<Entity>();
         for (Entity item : listOfEntities) {
-            if (!item.equals(this)&& inputEntityType.isInstance(item)) {
-                currentItemDistance=this.entityCoordinates.distanceTo(item.entityCoordinates);
+            if (!item.equals(this) && inputEntityType.isInstance(item)) {
+                double currentItemDistance = this.entityCoordinates.distanceTo(item.entityCoordinates);
                 if (currentItemDistance < distance) {
+                    equidistantTargets.clear();
                     distance = currentItemDistance;
-                    targetItem = item;
+                }
+                if (currentItemDistance == distance) {
+                    equidistantTargets.add(item);
                 }
             }
         }
-        return targetItem;
+        if (equidistantTargets.isEmpty()) return null;
+        return equidistantTargets.get((int) (Math.random() * equidistantTargets.size()));
     }
 }

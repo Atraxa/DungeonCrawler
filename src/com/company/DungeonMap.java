@@ -12,13 +12,20 @@ public class DungeonMap {
 
     DungeonMap(DungeonMap inputDungeonMap){
         this.name = inputDungeonMap.name;
-        this.coordinateAndCorrespondingTileData= (HashMap<Position, ArrayList<TileType>>) inputDungeonMap.coordinateAndCorrespondingTileData.clone();
+        this.coordinateAndCorrespondingTileData= new HashMap<Position, ArrayList<TileType>>();
+        for(Position item:inputDungeonMap.coordinateAndCorrespondingTileData.keySet()){
+            this.coordinateAndCorrespondingTileData.put(item, (ArrayList<TileType>) inputDungeonMap.coordinateAndCorrespondingTileData.get(item).clone());
+        }
     }
-
 
     DungeonMap(String inputDungeonName) {
         name = inputDungeonName;
         coordinateAndCorrespondingTileData = new HashMap<Position, ArrayList<TileType>>();
+    }
+
+    @Override
+    public DungeonMap clone(){
+        return new DungeonMap(this);
     }
 
     /**

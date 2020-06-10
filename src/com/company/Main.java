@@ -6,8 +6,8 @@ public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException {
     // Setting Camera Dimensions
-        DisplayGrid.setDefaultHeight(3);
-        DisplayGrid.setDefaultWidth(3);
+        DisplayGrid.setDefaultHeight(9);
+        DisplayGrid.setDefaultWidth(9);
     // Creating DungeonMap instance
         DungeonMap dungeonOfGurion = new DungeonMap("dungeonOfDOOOOM");
         dungeonOfGurion.addAssociation(new Position(0,0),TileType.floorTile)
@@ -24,20 +24,15 @@ public class Main {
 
         //Entity ellie = new Elephant(new Position(1,5),dungeonOfGurion);
         Entity randomLettuce1 = new Lettuce(new Position(0,0),dungeonOfGurion);
-        //Entity randomLettuce2 = new Lettuce(dungeonOfGurion);
-        //Entity randomLettuce3 = new Lettuce(dungeonOfGurion);
+        Entity randomLettuce2 = new Lettuce(new Position(2,2),dungeonOfGurion);
         Entity randomSheep1 = new Sheep(new Position(1,1),dungeonOfGurion);
         //Entity randomSheep2 = new Sheep(dungeonOfGurion);
         //Entity randomSheep3 = new Sheep(dungeonOfGurion);
-        //Entity randomWolf1 = new Wolf(dungeonOfGurion);
-        //Entity randomWolf2 = new Wolf(dungeonOfGurion);
-        //Entity randomWolf3 = new Wolf(dungeonOfGurion);
 
         int a=0;
         DisplayGrid.renderGridToConsole(new Position(1,1),dungeonOfGurion);
         while(a++<5){
-            randomSheep1.moveEntityTowardsSpecificEntityType(dungeonOfGurion);
-            //randomWolf1.moveEntityTowardsSpecificEntityType(dungeonOfGurion);
+            Entity.moveAllEntities(dungeonOfGurion);
             System.out.println();
             DisplayGrid.renderGridToConsole(new Position(1,1),dungeonOfGurion);
         }
